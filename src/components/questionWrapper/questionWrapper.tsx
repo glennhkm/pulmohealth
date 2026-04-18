@@ -14,14 +14,14 @@ interface QuestionWrapperProps {
 
 export const QuestionWrapper = (props: QuestionWrapperProps) => {
   return (
-    <div className="w-full py-4 bg-[#2C2C2C]/80 rounded-xl shadow-lg shadow-black/60 flex items-center justify-between gap-3 px-4 relative">
+    <div className="w-full py-3 md:py-4 bg-[#2C2C2C]/80 rounded-xl shadow-lg shadow-black/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 px-3 md:px-4 relative">
       {(props.gejala != null) && (
         <div className="bg-green-500 border border-black rounded-full absolute -right-3 -top-3">
-          <CheckIcon className="size-6" />
+          <CheckIcon className="size-5 md:size-6" />
         </div>
       )}
-      <p className="text-white text-sm">{props.question}</p>
-      <div className="flex gap-2.5 w-1/4">        
+      <p className="text-white text-xs md:text-sm">{props.question}</p>
+      <div className="flex gap-2 md:gap-2.5 w-full sm:w-auto shrink-0">        
         {(props.gejala === null || props.gejala === true) && (
           <YesButton setGejala={props.setToYes} gejala={props.gejala}/>
         )}

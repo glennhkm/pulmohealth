@@ -17,21 +17,12 @@ import { PenyakitDanSolusi } from "@/types/penyakitDanSolusi";
 import { DiagnosaModal } from "@/components/modals/diagnosaModal";
 import { Spotlight } from "@/components/aceternity/spotlight";
 import Image from "next/image";
-import Lungs_2 from "@/../public/assets/lottie/lungs-2.json";
 import Doctor from "@/../public/assets/lottie/doctor.json";
 import { ArrowDownIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import { SparklesCore } from "@/components/aceternity/sparkles";
 import { Navbar } from "@/components/navbar/navbar";
 import { ScrollToSection } from "@/utils/helpers/scrollToSection";
 import { BackgroundGradient } from "@/components/aceternity/bg-gradient";
-import { AnimatedTooltip } from "@/components/aceternity/animated-tooltip";
-import { anggotaKelompok } from "@/data/anggotaKelompok";
-import Lottie from "lottie-react";
-import { BackgroundBeams } from "@/components/aceternity/bg-beams";
-import { TextGenerateEffect } from "@/components/aceternity/text-generate";
-import CountUp from "react-countup";
-import { Meteors } from "@/components/aceternity/meteor";
-import Link from "next/link";
 import {
   Select,
   SelectContent,
@@ -43,13 +34,15 @@ import {
 } from "@/components/shadcn/select";
 import { RefreshIcon } from "@/components/icons/refreshIcon";
 import { MultiStepLoader as Loader} from "@/components/aceternity/loader";
+import Link from "next/link";
+import CountUp from "react-countup";
+import Lottie from "lottie-react";
 
 const Main = () => {
   const [gejalaUser, setGejalaUser] = useState(defaultGejala);
   const [diagnosa, setDiagnosa] = useState<PenyakitDanSolusi[]>([]);
   const [diagnosaInfo, setDiagnosaInfo] = useState("");
   const [showDiagnosa, setShowDiagnosa] = useState(false);
-  const [isIntro, setIsIntro] = useState(true);
   const [isSpotlight, setIsSpotlight] = useState(false);
   const [isLoadingDiagnosa, setIsLoadingDiagnosa] = useState(false);
   const [userData, setUserData] = useState({
@@ -146,8 +139,6 @@ const Main = () => {
     const diagnosedPenyakit = penyakitUser
       .filter((penyakit) => penyakit.diagnosa === true)
       .map(({ diagnosa, ...rest }) => rest);
-    // console.log(diagnosedPenyakit);
-    // console.log(gejalaUser);
     setDiagnosa(diagnosedPenyakit);    
 
     if (diagnosedPenyakit.length === 0) {
@@ -204,19 +195,6 @@ const Main = () => {
   }
 
   useEffect(() => {
-    const introTimer = setTimeout(() => {
-      setIsIntro(false);
-    }, 5100);
-    const spotlightTimer = setTimeout(() => {
-      setIsSpotlight(true);
-    }, 3000);
-    return () => {
-      clearTimeout(introTimer);
-      clearTimeout(spotlightTimer);
-    };
-  }, []);
-
-  useEffect(() => {
     if (isDiagnosing) {
       scrollToResults();
     }
@@ -232,74 +210,19 @@ const Main = () => {
           dataUser={userData}
           gejalaUser={gejalaUser}
         />
-      )}
-
-      {isIntro && (
-        <div
-          className="bg-[#151515] w-screen h-screen z-50 top-0 left-0 text-white flex flex-col justify-center items-center fixed"
-          style={{
-            animation: "slideDown 1s forwards",
-            animationDelay: "4s",
-          }}
-        >
-          <TextGenerateEffect
-            className="text-[10rem] text-white font-extrabold"
-            words="Kelompok 6"
-          />
-          <div className="flex gap-2 items-center -mt-5">
-            <Image
-              src="/assets/images/logo.png"
-              alt="logo"
-              width={120}
-              height={120}
-            />
-            <div className="flex flex-col gap-1 pb-3">
-              <TextGenerateEffect
-                className="font-bold text-6xl"
-                words="PulmoHealth"
-              />
-              <TextGenerateEffect
-                className="-mt-4 text-sm pl-1"
-                // words="Kecerdasan Artifisial berbasis aturan mengenai diagnosa penyakit paru-paru"
-                words="Deteksi Cepat, Tindakan Tepat: Jaga Kesehatan Paru-Paru Anda dari Sekarang"
-              />
-            </div>
-          </div>
-          <div className="absolute top-0 left-0 w-screen z-50">
-            <Marquee
-              direction="left"
-              className="bg-white text-black text-xs p-2"
-            >
-              <p>
-                Program ini hanya berfungsi sebagai alat bantu diagnosa dan
-                telah dihitung memiliki akurasi sebesar 84.21%. Penting untuk
-                dipahami bahwa hasil yang diberikan bukanlah jaminan kebenaran
-                100%, dan masih ada kemungkinan adanya kondisi medis lain yang
-                tidak terdeteksi oleh program ini. Oleh karena itu, disarankan
-                untuk tetap berkonsultasi dengan tenaga medis profesional guna
-                mendapatkan diagnosis yang lebih akurat dan menyeluruh.
-              </p>
-              <p className="w-[50vw] h-full"></p>
-            </Marquee>
-          </div>
-          <BackgroundBeams />
-        </div>
-      )}
+      )}      
       <div id="navbar">
         <Navbar />
       </div>
-      <div className="absolute left-4 top-5 z-20">
-        <p className="text-white/20 text-sm">Hak Cipta © 2024 | Kelompok 6</p>
-      </div>
       <div
         id="hero"
-        className="w-full h-screen to-transparent relative px-16 bg-grid-white/5"
+        className="w-full h-screen to-transparent overflow-x-hidden relative px-5 sm:px-8 md:px-12 lg:px-16 bg-grid-white/5"
       >
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         {isSpotlight && <Spotlight />}
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="w-1/2 flex flex-col gap-4 text-white/90 z-30 items-start">
-            <h1 className="text-7xl font-bold">PulmoHealth</h1>
+        <div className="w-full h-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0">
+          <div className="w-full md:w-1/2 flex flex-col gap-3 md:gap-4 text-white/90 z-30 items-center md:items-start text-center md:text-left">
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl font-bold">PulmoHealth</h1>
             <div className="w-full relative">
               <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-indigo-500 via-transparent to-transparent h-[2px] w-full blur-sm" />
               <div className="absolute inset-x-0 top-0 bg-gradient-to-r from-indigo-500 via-transparent to-transparent h-px w-full" />
@@ -314,20 +237,20 @@ const Main = () => {
                 particleColor="#FFFFFF"
               />
             </div>
-            <p className="">
+            <p className="text-sm md:text-base">
               Sistem AI berbasis aturan yang mendiagnosis penyakit paru-paru
               melalui analisis jawaban Anda. Dapatkan evaluasi paru-paru yang
               cepat dan akurat dengan PulmoHealth.
             </p>
             <button
               onClick={() => ScrollToSection("diagnosa")}
-              className="w-48 py-2.5 rounded-xl border-[0.1px] border-black/20  shadow-balance shadow-sky-500 hover:shadow-slate-200 hover:scale-105 duration-150 mt-2 text-sm flex gap-2 items-center justify-center"
+              className="w-44 md:w-48 py-2 md:py-2.5 rounded-xl border-[0.1px] border-black/20 shadow-balance shadow-sky-500 hover:shadow-slate-200 hover:scale-105 duration-150 mt-2 text-sm flex gap-2 items-center justify-center"
             >
               <p className="font-bold">Mulai Sekarang</p>
               <ArrowDownIcon />
             </button>
           </div>
-          <div className="w-[40%]">
+          <div className="w-[60%] sm:w-[50%] md:w-[40%]">
             <Image
               src="/assets/images/person-lungs.webp"
               alt="Lungs"
@@ -340,16 +263,16 @@ const Main = () => {
       </div>
       <div
         id="tentang"
-        className="h-screen px-16 w-full bg-[#151515] bg-dot-white/[0.2]  relative flex items-center justify-center"
+        className="min-h-screen py-16 md:py-0 md:h-screen px-5 sm:px-8 md:px-12 lg:px-16 w-full bg-[#151515] bg-dot-white/[0.2] relative flex flex-col-reverse md:flex-row items-center justify-center gap-8 md:gap-4"
       >
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-        <div className="grid grid-cols-3 w-1/2 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 w-full md:w-1/2 gap-3">
           <Link
             href={"https://journal.unnes.ac.id/nju/jte/article/view/7436/5765"}
             className="hover:scale-[1.02] duration-200"
             target="_blank"
           >
-            <BackgroundGradient className="rounded-xl w-full flex flex-col justify-between p-4 bg-zinc-900 relative h-[30vh]  group">
+            <BackgroundGradient className="rounded-xl w-full flex flex-col justify-between p-3 md:p-4 bg-zinc-900 relative h-[22vh] md:h-[30vh] group">
               <Image
                 src="/assets/images/document-2.jpg"
                 alt="document"
@@ -359,39 +282,38 @@ const Main = () => {
               />
               <div className="flex justify-between w-full text-white items-center">
                 <div className="flex flex-col">
-                  <p className="font-bold">Sumber Jurnal</p>
-                  <p className="text-[0.68rem]">Jurnal Teknik Elektro UNNES</p>
+                  <p className="font-bold text-xs md:text-base">Sumber Jurnal</p>
+                  <p className="text-[0.58rem] md:text-[0.68rem]">Jurnal Teknik Elektro UNNES</p>
                 </div>
                 <ArrowRightIcon className="w-6 h-6" />
               </div>
             </BackgroundGradient>
           </Link>
           <div className="hover:scale-[1.02] duration-200">
-            <BackgroundGradient className="rounded-xl p-4 w-full bg-zinc-900 relative h-[30vh] text-white group flex flex-col items-center justify-center">
+            <BackgroundGradient className="rounded-xl p-3 md:p-4 w-full bg-zinc-900 relative h-[22vh] md:h-[30vh] text-white group flex flex-col items-center justify-center">
               <CountUp
                 end={84}
                 suffix="%"
                 enableScrollSpy
                 duration={3}
-                className="text-[4.6rem] font-bold"
+                className="text-[3rem] md:text-[4.6rem] font-bold"
               />
-              <p className="font-semibold text-[1.16rem] text-center border-t-[0.4px] border-white/40 pt-5">
+              <p className="font-semibold text-xs md:text-[1.16rem] text-center border-t-[0.4px] border-white/40 pt-3 md:pt-5">
                 Nilai Probabilitas Keakuratan Sistem
               </p>
-              <Meteors number={20} />
             </BackgroundGradient>
           </div>
-          <div className="hover:scale-[1.02] duration-200">
-            <BackgroundGradient className="rounded-xl p-4 w-full bg-zinc-900 relative h-[30vh] text-white group flex flex-col">
-              <h6 className="font-bold text-lg">
+          <div className="col-span-2 md:col-span-1 hover:scale-[1.02] duration-200">
+            <BackgroundGradient className="rounded-xl p-3 md:p-4 w-full bg-zinc-900 relative h-[22vh] md:h-[30vh] text-white group flex flex-col">
+              <h6 className="font-bold text-sm md:text-lg">
                 27 Fakta dengan 5 Diagnosa Penyakit
               </h6>
               <div className="h-[1px] w-5/6 bg-gradient-to-r from-transparent via-sky-500 to-transparent my-2"></div>
-              <p className="text-sm mt-1">1. Tuberculosis (TBC)</p>
-              <p className="text-sm ">2. Penyakit Paru Obstruktif (PPOK)</p>
-              <p className="text-sm ">3. Asma Bronkial</p>
-              <p className="text-sm ">4. Kanker Paru</p>
-              <p className="text-sm ">5. Pneumonia</p>
+              <p className="text-xs md:text-sm mt-1">1. Tuberculosis (TBC)</p>
+              <p className="text-xs md:text-sm">2. Penyakit Paru Obstruktif (PPOK)</p>
+              <p className="text-xs md:text-sm">3. Asma Bronkial</p>
+              <p className="text-xs md:text-sm">4. Kanker Paru</p>
+              <p className="text-xs md:text-sm">5. Pneumonia</p>
               <div className="absolute right-1.5 -bottom-4">
                 <Lottie
                   animationData={Doctor}
@@ -403,11 +325,11 @@ const Main = () => {
               </div>
             </BackgroundGradient>
           </div>
-          <div className="w-full col-span-3 hover:scale-[1.02] duration-200">
-            <BackgroundGradient className="rounded-xl w-full p-4 text-white bg-zinc-900 flex flex-col">
-              <p className="font-bold">Catatan penting</p>
-              <p className="text-sm">
-                Program ini merupakan alat bantu diagnosa dengan akurasi 80%.
+          <div className="w-full col-span-2 md:col-span-3 hover:scale-[1.02] duration-200">
+            <BackgroundGradient className="rounded-xl w-full p-3 md:p-4 text-white bg-zinc-900 flex flex-col">
+              <p className="font-bold text-sm md:text-base">Catatan penting</p>
+              <p className="text-xs md:text-sm">
+                Platform ini merupakan alat bantu diagnosa dengan akurasi 80%.
                 Hasilnya tidak menjamin kebenaran 100% dan mungkin ada kondisi
                 medis lain yang tidak terdeteksi. Konsultasi dengan tenaga medis
                 profesional tetap dianjurkan untuk diagnosis yang lebih akurat.
@@ -415,15 +337,12 @@ const Main = () => {
             </BackgroundGradient>
           </div>
         </div>
-        <div className="flex flex-col gap-5 px-16 text-white/90 w-1/2 relative">
-          <div className="absolute -top-6 right-36 w-40 h-3w-40">
-            <Lottie animationData={Lungs_2} />
-          </div>
-          <div className="flex">
+        <div className="flex flex-col gap-3 md:gap-5 px-0 md:px-8 lg:px-16 text-white/90 w-full md:w-1/2 relative text-center md:text-left">
+          {/* <div className="flex">
             <AnimatedTooltip items={anggotaKelompok} />
-          </div>
-          <h2 className="text-7xl font-bold">Tentang PulmoHealth</h2>
-          <p>
+          </div> */}
+          <h2 className="text-3xl sm:text-5xl lg:text-7xl font-bold">Tentang PulmoHealth</h2>
+          <p className="text-sm md:text-base">
             Kami adalah platform berbasis AI yang membantu mendiagnosa penyakit
             paru-paru seperti TBC, PPOK, Asma, Kanker Paru-paru, dan Pneumonia.
             Melalui analisis jawaban dari serangkaian pertanyaan, PulmoHealth
@@ -435,12 +354,12 @@ const Main = () => {
       </div>
       <div
         id="diagnosa"
-        className={`w-full h-full py-12 px-16 flex flex-col gap-4 bg-black bg-grid-small-white/[0.2] relative ${!isDiagnosing ? 'pb-24' : 'pb-[3.4rem]'}`}
+        className={`w-full h-full py-8 md:py-12 px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col gap-3 md:gap-4 bg-black bg-grid-small-white/[0.2] relative ${!isDiagnosing ? 'pb-20 md:pb-24' : 'pb-[3.4rem]'}`}
       >
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black/40 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <h2
           ref={diagnosaRef}
-          className="font-bold text-8xl text-center text-white/90 mt-8 z-20 mb-8"
+          className="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-center text-white/90 mt-4 md:mt-8 z-20 mb-4 md:mb-8"
         >
           Cek Diagnosa
         </h2>
@@ -453,8 +372,8 @@ const Main = () => {
             <p>Re-input Data</p>
           </button>
         )}
-        <div className="flex flex-col gap-4 w-full rounded-xl bg-[#151515]/80 z-20 p-6 text-white border border-white/20">
-          <div className="flex gap-4">
+        <div className="flex flex-col gap-3 md:gap-4 w-full rounded-xl bg-[#151515]/80 z-20 p-4 md:p-6 text-white border border-white/20">
+          <div className="flex flex-col md:flex-row gap-3 md:gap-4">
             <div className="flex flex-col w-full gap-1">
               <label htmlFor="nama" className="text-white pl-1 font-bold">
                 Nama
@@ -576,7 +495,7 @@ const Main = () => {
           )}
         </div>
         {isDiagnosing && (
-          <div className="grid grid-cols-2 gap-4 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 w-full">
             {informasiGejala.map((infoGejala, index) => (
               <QuestionWrapper
                 key={index}
@@ -591,10 +510,10 @@ const Main = () => {
             ))}
             <button
               onClick={diagnosaCheck}
-              className="rounded-xl z-20 hover:bg-blue-900 duration-150 text-xl font-extrabold text-white bg-blue-600 col-span-2 py-2 flex gap-3 items-center justify-center mt-1 shadow-lg shadow-black/60"
+              className="rounded-xl z-20 hover:bg-blue-900 duration-150 text-base md:text-xl font-extrabold text-white bg-blue-600 col-span-1 md:col-span-2 py-2 flex gap-2 md:gap-3 items-center justify-center mt-1 shadow-lg shadow-black/60"
             >
               <p>CEK DIAGNOSA</p>
-              <ArrowIcon className="size-12" />
+              <ArrowIcon className="size-8 md:size-12" />
             </button>
             <Loader loadingStates={loadingState} duration={1000} loading={isLoadingDiagnosa}/>
           </div>
@@ -603,11 +522,11 @@ const Main = () => {
       <div id="marquee" className="fixed bottom-0 left-0 z-40">
         <Marquee direction="left" className="bg-white text-black text-xs p-2">
           <p>
-            Program ini hanya berfungsi sebagai alat bantu diagnosa dan telah
+            Platform ini hanya berfungsi sebagai alat bantu diagnosa dan telah
             dihitung memiliki akurasi sebesar 84.21%. Penting untuk dipahami bahwa
             hasil yang diberikan bukanlah jaminan kebenaran 100%, dan masih ada
             kemungkinan adanya kondisi medis lain yang tidak terdeteksi oleh
-            program ini. Oleh karena itu, disarankan untuk tetap berkonsultasi
+            platform ini. Oleh karena itu, disarankan untuk tetap berkonsultasi
             dengan tenaga medis profesional guna mendapatkan diagnosis yang
             lebih akurat dan menyeluruh.
           </p>

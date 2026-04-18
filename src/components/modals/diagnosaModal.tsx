@@ -24,17 +24,17 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
   const handlePrint = useReactToPrint({ contentRef });
 
   return (
-    <div className="w-screen h-screen bg-black/90 fixed top-0 left-0 flex justify-center items-center z-50">
-      <div className="w-[60vw] h-auto bg-black/60 border-[0.8px] border-white/40 rounded-xl grid grid-cols-2 grid-rows-2 gap-3 p-4 relative">
+    <div className="w-screen h-screen bg-black/90 fixed top-0 left-0 flex justify-center items-center z-50 p-3 md:p-6">
+      <div className="w-full md:w-[85vw] lg:w-[60vw] max-h-[90vh] overflow-y-auto bg-black/60 border-[0.8px] border-white/40 rounded-xl grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-3 p-3 md:p-4 relative">
         <button
           onClick={() => props.setShowDiagnosa(false)}
           className="absolute -top-2 -right-2 bg-red-800 rounded-full p-1 pb-[0.29rem] hover:scale-110 duration-150"
         >
           <XIcon className="size-4 text-white" />
         </button>
-        <div className="flex flex-col text-white bg-[#151515] w-full rounded-xl relative p-4 h-auto">
-          <h4 className="text-4xl font-extrabold">Data Anda</h4>
-          <div className="absolute top-0 right-2 w-20 h-20">
+        <div className="flex flex-col text-white bg-[#151515] w-full rounded-xl relative p-3 md:p-4 h-auto">
+          <h4 className="text-2xl md:text-4xl font-extrabold">Data Anda</h4>
+          <div className="absolute top-0 right-2 w-14 h-14 md:w-20 md:h-20">
             <Lottie animationData={User} />
           </div>
           <div className="h-[1px] my-4 w-full bg-gradient-to-r from-transparent via-sky-500 to-transparent"></div>
@@ -57,9 +57,9 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
             </div>
           </div>
         </div>
-        <div className="bg-[#151515] shadow-lg shadow-black flex flex-col rounded-xl p-4 relative text-white w-full row-span-2">
-          <h4 className="font-extrabold text-4xl">Diagnosa</h4>
-          <div className="absolute top-0 right-2 w-20 h-20">
+        <div className="bg-[#151515] shadow-lg shadow-black flex flex-col rounded-xl p-3 md:p-4 relative text-white w-full md:row-span-2">
+          <h4 className="font-extrabold text-2xl md:text-4xl">Diagnosa</h4>
+          <div className="absolute top-0 right-2 w-14 h-14 md:w-20 md:h-20">
             <Lottie animationData={Lungs} />
           </div>
           <div className="h-[1px] my-6 w-full bg-gradient-to-r from-transparent via-yellow-500 to-transparent"></div>
@@ -76,9 +76,11 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
             pemeriksaan lebih lanjut dan penanganan medis yang tepat.
           </p>
         </div>
-        <div className="text-white flex flex-col bg-[#151515] w-full h-full rounded-xl relative p-4">
-          <h4 className="font-extrabold text-4xl">Catatan Penting</h4>
-          <div className="absolute -top-5 -right-1.5 w-28 h-28">
+        <div className="text-white flex flex-col bg-[#151515] w-full h-full rounded-xl relative p-3 md:p-4">
+          <h4 className="font-extrabold text-2xl md:text-4xl">
+            Catatan Penting
+          </h4>
+          <div className="absolute -top-5 -right-1.5 w-20 h-20 md:w-28 md:h-28">
             <Lottie animationData={Note} />
           </div>
           <div className="h-[1px] my-4 w-full bg-gradient-to-r from-transparent via-sky-500 to-transparent"></div>
@@ -96,7 +98,7 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
         </div>
         <button
           onClick={() => handlePrint()}
-          className="col-span-2 text-white justify-center items-center gap-3 duration-200 flex bg-cyan-700 hover:bg-cyan-900 saturate-200 rounded-xl font-bold py-2.5 text-xl"
+          className="md:col-span-2 text-white justify-center items-center gap-2 md:gap-3 duration-200 flex bg-cyan-700 hover:bg-cyan-900 saturate-200 rounded-xl font-bold py-2 md:py-2.5 text-base md:text-xl"
         >
           <p>Cetak Hasil</p>
           <DownloadIcon className="size-5" />
@@ -107,11 +109,12 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
             className="flex flex-col fixed bg-white w-full h-full py-10 px-12"
           >
             <div className="flex w-full justify-center items-center pb-6 border-b border-black/20">
-              <Image
+              <img
                 src="/assets/images/logo.png"
                 alt="logo"
                 width={100}
                 height={100}
+                style={{ objectFit: "contain" }}
               />
               <div className="flex flex-col gap-1">
                 <h2 className="text-7xl font-extrabold">PulmoHealth</h2>
@@ -136,19 +139,6 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
                 </div>
               </div>
             </div>
-            {/* <div className="flex flex-col mt-8 border-b border-black/20 pb-8">
-              <h4 className="font-extrabold text-3xl">Gejala Anda</h4>
-              <ul className="mt-4 flex flex-col gap-2">
-                {Object.entries(props.gejalaUser)
-                  .filter(([_, value]) => value)
-                  .map(([key], index) => (
-                    <li key={index} className="font-bold text-lg">
-                      {index + 1}.{" "}
-                      {defaultGejala[key as keyof DefaultGejalaTypes]}
-                    </li>
-                  ))}
-              </ul>
-            </div> */}
             <div className="flex flex-col mt-8 border-b border-black/20 pb-8">
               <h4 className="font-extrabold text-3xl">Hasil Diagnosa</h4>
               {props.diagnosa.length > 0 ? (
@@ -185,7 +175,6 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
             <p className="font-bold">
               Terima kasih telah memakai platform kami.
             </p>
-            <p className="">Hak Cipta © 2024 | Kelompok 6</p>
           </div>
         </div>
       </div>

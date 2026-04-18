@@ -23,6 +23,16 @@ const config: Config = {
       },
     },
     extend: {
+      screens: {
+        "xs": "376px",
+        "sm": "640px",
+        "md": "768px",
+        "ipad-vertical": "768px",
+        "ipad-horizontal": "1238px",
+        "lg": "1400px",
+        "xl": "1536px",
+        "2xl": "2560px",
+      },
       animation: {
         "spotlight": "spotlight 2s ease .75s 1 forwards",
         "meteor-effect": "meteor 5s linear infinite",
