@@ -7,9 +7,7 @@ import Lungs from "@/../public/assets/lottie/lungs.json";
 import Lottie from "lottie-react";
 import { useReactToPrint } from "react-to-print";
 import { DownloadIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
 import { DefaultGejalaTypes } from "@/types/defaultGejalaTypes";
-import { defaultGejala } from "@/data/defaultGejala";
 
 interface DiagnosaModalProps {
   setShowDiagnosa: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,12 +24,14 @@ export const DiagnosaModal = (props: DiagnosaModalProps) => {
   return (
     <div className="w-screen h-screen bg-black/90 fixed top-0 left-0 flex justify-center items-center z-50 p-3 md:p-6">
       <div className="w-full md:w-[85vw] lg:w-[60vw] max-h-[90vh] overflow-y-auto bg-black/60 border-[0.8px] border-white/40 rounded-xl grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-3 p-3 md:p-4 relative">
-        <button
-          onClick={() => props.setShowDiagnosa(false)}
-          className="absolute -top-2 -right-2 bg-red-800 rounded-full p-1 pb-[0.29rem] hover:scale-110 duration-150"
-        >
-          <XIcon className="size-4 text-white" />
-        </button>
+        <div className="fixed md:w-[85vw] lg:w-[60vw] max-h-[90vh]">
+          <button
+            onClick={() => props.setShowDiagnosa(false)}
+            className="absolute -top-2 -right-2 bg-red-800 rounded-full p-1 pb-[0.29rem] hover:scale-110 duration-150"
+          >
+            <XIcon className="size-4 text-white" />
+          </button>
+        </div>
         <div className="flex flex-col text-white bg-[#151515] w-full rounded-xl relative p-3 md:p-4 h-auto">
           <h4 className="text-2xl md:text-4xl font-extrabold">Data Anda</h4>
           <div className="absolute top-0 right-2 w-14 h-14 md:w-20 md:h-20">
